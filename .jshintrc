@@ -44,7 +44,7 @@
     "eqnull"        : false,     // true: Tolerate use of `== null`
     "esversion"     : 6,         // {int} Specify the ECMAScript version to which the code must adhere.
     "moz"           : false,     // true: Allow Mozilla specific syntax (extends and overrides esnext features)
-                                 // (ex: `for each`, multiple try/catch, function expression…)
+                                 // (ex: `for each`, multiple try/catch, function expressionï¿½)
     "evil"          : true,     // true: Tolerate use of `eval` and `new Function()`
     "expr"          : false,     // true: Tolerate `ExpressionStatement` as Programs
     "funcscope"     : false,     // true: Tolerate defining variables inside control statements
@@ -88,18 +88,20 @@
 
     // Custom Globals
     "globals"       : { // additional predefined global variables
-		"T4Utils" : true ,
-		"importPackage" : true , 
-		"com" : true , 
-		"content" : true , 
-		"language" : true , 
-		"MediaManager" : true ,
-		"MediaUtils" : true ,
-		"dbStatement" : true , 
-		"section" : true , 
-		"publishCache" : true ,
-		"isPreview" : true,
-		"MessageDigest" : true,
-		"PathBuilder" : true		
-	}        
+        "T4Utils" : true ,
+        "importPackage" : true ,
+        "com" : true ,
+        "content" : true ,
+        "language" : true ,
+        "MediaManager" : true ,
+        "MediaUtils" : true ,
+        "dbStatement" : true ,
+        "section" : true ,
+        "publishCache" : true ,
+        "isPreview" : true,
+        "MessageDigest" : true,
+        "PathBuilder" : true,
+        "ContentHierarchy" : true,
+        "ContentManager" : true
+	}
 }
