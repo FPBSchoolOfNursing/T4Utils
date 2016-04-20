@@ -11,7 +11,7 @@ module.exports = {
                 './components/ordinalIndicators.js'
     ],
     outputDir: './T4Utils/',
-    isProduction: (process.env.NODE_ENV === 'production'), //Set from command line like SET NODE_ENV=production.
+    isProduction: (process.env.NODE_ENV === 'production'), //Set from command line like SET NODE_ENV=production (EXPORT NODE_ENV=production on MAC).
     banner: ['/**',
             ' * <%= package.name %> - <%= package.description %>',
             ' * @version v<%= package.version %>',
