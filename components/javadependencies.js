@@ -1,21 +1,21 @@
 /**
  * Java dependencies -
- * @version v1.0.3
+ * @version v1.0.0
  * @link git+https://github.com/FPBSchoolOfNursing/T4Utils.git
  * @author Ben Margevicius
- * @date April 14, 2016
+ * @date April 19, 2016
  * Copyright 2016. MIT licensed.
  */
 /* jshint strict: false */
-/* Java Language */
-importPackage(java.lang);
+/* Java Language
+importPackage(java.lang); */
 /* getSectionInfo.js */
-importClass(com.terminalfour.publish.PathBuilder);
+importClass(com.terminalfour.publish.PathBuilder); 
 /* media.js */
 importPackage(com.terminalfour.media);
 importPackage(com.terminalfour.media.utils);
-/* ordinalIndicators.js */
+/* ordinalIndicators.js 
 importClass(com.terminalfour.sitemanager.cache.utils.CSHelper);
 importClass(com.terminalfour.sitemanager.cache.CachedContent);
 importPackage(com.terminalfour.sitemanager);
-importPackage(com.terminalfour.content);
+importPackage(com.terminalfour.content); */

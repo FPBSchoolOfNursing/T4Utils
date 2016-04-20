@@ -4,63 +4,33 @@
  * @link git+https://github.com/FPBSchoolOfNursing/T4Utils.git
  * @author Ben Margevicius
  * Copyright 2016. MIT licensed.
- * Built: Tue Apr 19 2016 11:25:25 GMT-0400 (Eastern Daylight Time).
+ * Built: Wed Apr 20 2016 16:39:45 GMT-0400 (Eastern Daylight Time).
  */
 /**
  * Java dependencies -
- * @version v1.0.3
+ * @version v1.0.0
  * @link git+https://github.com/FPBSchoolOfNursing/T4Utils.git
  * @author Ben Margevicius
- * @date April 14, 2016
+ * @date April 19, 2016
  * Copyright 2016. MIT licensed.
  */
 /* jshint strict: false */
-/* Java Language */
-importPackage(java.lang);
+/* Java Language
+importPackage(java.lang); */
 /* getSectionInfo.js */
-importClass(com.terminalfour.publish.PathBuilder);
+importClass(com.terminalfour.publish.PathBuilder); 
 /* media.js */
 importPackage(com.terminalfour.media);
 importPackage(com.terminalfour.media.utils);
-/* ordinalIndicators.js */
+/* ordinalIndicators.js 
 importClass(com.terminalfour.sitemanager.cache.utils.CSHelper);
 importClass(com.terminalfour.sitemanager.cache.CachedContent);
 importPackage(com.terminalfour.sitemanager);
-importPackage(com.terminalfour.content);
+importPackage(com.terminalfour.content); */
 
 /*  Versioning    
-	6/24/2015 - Initial
-	6/30/2015 - Added stuff from T4's javascript util (https://community.terminalfour.com/forum/index.php?topic=426.0)
-				Added utils.version;
-				Added utils.siteManager namespace 
-				Added utils.siteManager.version, and utils.siteManager.buildDetails;
-				Added utils.brokerUtils namespace
-				Added utils.brokerUtils.processT4Tags
-	7/1/2015	Added utils.console(method, textOrObj) used to write debugging statements to the console.
-	7/2/2015 	Added utils.elementInfo namspace to return info about elements 
-				Added utils.elementInfo.getElements to return an array of elements
-				Added utils.elementInfo.getElementValue(element) to return the value of an element. 
-	7/6/2015	Added utils.elementInfo.getElementName(element).
-	7/8/2015	Added newline chars for pretty printing of console and write methods
-				Added utils.siteManager.javaVersion
-	7/20/2015	Added utils.getSectionInfo.getChildren(section, isHiddenInNAV)  
-	8/13/2015	Added utils.getSectionInfo.getLevel(section)
-				Added utils.toString(obj) 
-	9/18/2015	Added utils.elementInfo.getElementID (element) Returns the id of an element.
-				Added utils.media namspace to give some help with images utils.media.getMediaObject(int id)
-						utils.media.getImageDimensions(mediaobj media)
-						utils.media.getImageVariantsIds(string mediaElement).	
-	11/2/2015	Added utils.getSectionInfo.getPathUntilLevel(finalLevel, currentSection)
-				Added utils.getSectionInfo.getPathBySteps(stepsUp, currentSection)
-				Modded utils.getSectionInfo.getRootPath to use getPathUntilLevel(0);
-	1/6/2016	Modded the elementInfo namespace. This includes some bug checks.
-	2/16/2016 	Added utils.Media.getImageTag.
-	2/25/2016 	Removed utils.Media.getImageTag. There is an issue with utils classes and t4 tags 
-				Merged in security namespace
-				Merged in security.toSHA256(plainText)
-	4/5/2016	Changed to a modular format. Using NPM + Gulp to script the builds. Changed to semantic versioning.
-				Added another attempt at media.GetImageTag. It's incomplete ATM.
-	4/14/2016	Moved the java depedencies to a seperate file. This is done to prevent future duplicates.
+	4/19/2016 - Initial V8.1 support
+	
 	Usage:
 	1) Add a content type, modify the content layout, paste this at the top of your layout. 
 	2) Your code will go below the T4Utils Object
@@ -182,11 +152,11 @@ var T4Utils = (function (utils) {
 	* @param {object} obj - The object you want to convert
 	* @return {java.lang.String} The converted object.	
 	* It has happend to me when using utils.elementInfo.getElementValue('') it'll return a java obj? the javascript toString method will not convert that to a javascript string. This will convert to a * string. grumble.
-	*/
+	depreciating this 4/19/2016. toJavaString is more sound and complete of a description. 
 	utils.toString = function(obj)
 	{
-		return new java.lang.String(obj); 
-	};
+		return new obj.toJavaString(); 
+	};*/
 	
 	/**
 	* Converts a javascript object to Java string by prototying
@@ -199,12 +169,21 @@ var T4Utils = (function (utils) {
 		return new java.lang.String(this); //this is crazy.		
 	};
 	
+	/**
+	* Escapes an html encoded string <tag class="something"> should become &lt;tag class=&quot;something&quot;&gt
+	* @param {string} unsafe - The HTML encoded string you want to convert
+	* @return {java.lang.String} The HTML escaped string.		
+	*/
 	utils.escapeHtml = function (unsafe) {
+		return org.apache.commons.lang.StringEscapeUtils.escapeHtml(unsafe);
+		
+		/*
 		return unsafe.replace(/&/g, "&amp;")
     			.replace(/</g, "&lt;")
     			.replace(/>/g, "&gt;")
-    			.replace(/'/g, "&#039;");
-    			//.replace(/"/g, "&quot;");	
+    			.replace(/'/g, "&#039;")
+    			.replace(/"/g, "&quot;");	
+				*/
 	};
 	return utils;
 })(T4Utils || {});
@@ -213,7 +192,7 @@ var T4Utils = (function (utils) {
  * @version v1.0.0
  * @link git+https://github.com/FPBSchoolOfNursing/T4Utils.git
  * @author Ben Margevicius
- * @date April 4, 2016
+ * @date April 19, 2016
  * Copyright 2016. MIT licensed.
  */
 
@@ -239,7 +218,6 @@ T4Utils.siteManager.buildDetails = com.terminalfour.sitemanager.SiteManagerVersi
 *	@return {string} The site manager java version. Note: Anything below java 8 is obsolete. 4/4/16
 */	
 T4Utils.siteManager.javaVersion = java.lang.System.getProperty("java.version");
-
 /**
  * T4Utils.brokerUtils - Broker Utils namespace for T4
  * @version v1.0.0
@@ -280,7 +258,9 @@ T4Utils.elementInfo = T4Utils.elementInfo || {};
 /**
 *	Get all of the elements within the piece of content
 *	@return {ContentElement[]} An array containing the elements within the piece of content.
-*/	
+
+Removing this until it works. 
+
 T4Utils.elementInfo.getElements = function() {
 	var c = content || null;
 	if(c !== null) {
@@ -290,6 +270,7 @@ T4Utils.elementInfo.getElements = function() {
 		return null;
 	}
 };
+*/	
 
 /**
 *	If the element is "text", get its' "publish" value as a String.
@@ -617,296 +598,3 @@ T4Utils.security.toSHA256 = function(plainText) {
 	}
 	return hash;
 };
-/**
-* T4Utils.ordinalIndicators
-* @version v1.0.0
-* @link git+https://github.com/virginiacommonwealthuniversity/T4Utils.git
-* @author Joel Eisner
-* @date April 15, 2016
-* Copyright 2016. MIT licensed.
-*/
-/* jshint strict: false */
-
-/**
-* Ordinal indicators namespace declaration
-*/
-T4Utils.ordinalIndicators = T4Utils.ordinalIndicators || {};
-
-/**
-* Find if the position of the content within the page is the first of its kind
-* @return {bool} true if first, false if not
-*/
-T4Utils.ordinalIndicators.pageFirst = (function() {
-    var pageFirst = false;
-    // Create function to delete excess array objects if they have identical keys...
-    function unique(arr) {
-        var comparer = function compareObject(a, b) {
-            if (a.key === b.key) {
-                return 0;
-            } else {
-                if (a.key < b.key) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
-        };
-        arr.sort(comparer);
-        var end;
-        for (var i = 0; i < arr.length - 1; ++i) {
-            if (comparer(arr[i], arr[i+1]) === 0) {
-                arr.splice(i, 1);
-            }
-        }
-        return arr;
-    }
-    // Grab all pieces of content on the page
-    var cL = com.terminalfour.sitemanager.cache.utils.CSHelper.extractCachedContent (com.terminalfour.sitemanager.cache.utils.CSHelper.removeSpecialContent (section.getContent (publishCache.getChannel (), com.terminalfour.sitemanager.cache.CachedContent.APPROVED)));
-    // Run through each piece of content, find out all the content types, and create a key array...
-    var listContentTypeIDs = [];
-    for (var j = 0; j < cL.length; j++) {
-        var contentPiece = cL[j],
-            pieceID = contentPiece.getTemplateID();
-        listContentTypeIDs.push({
-            'key': pieceID,
-            'pieces': []
-        });
-    }
-    unique(listContentTypeIDs);
-    // Run through each piece of content, and put them in their corresponding key object
-    for (var k = 0; k < cL.length; k++) {
-        var cP = cL[k],
-            ctID = cP.getTemplateID(),
-            uID = cP.getID();
-        for (var l = 0; l < listContentTypeIDs.length; l++) {
-            var contentTypeID = listContentTypeIDs[l];
-            if (ctID === contentTypeID.key) {
-                var p = contentTypeID.pieces;
-                p.push(uID);
-            }
-        }
-    }
-    // Get the current content type ID and unique ID
-    var this_ctID = content.getTemplateID(),
-        this_uID = content.getID();
-    // Set the pageFirst and pageLast values
-    for (var m = 0; m < listContentTypeIDs.length; m++) {
-        var typeID = listContentTypeIDs[m];
-        // Find the current content piece in the array of all alike content on the page...
-        if (typeID.key === this_ctID) {
-            var pieces = typeID.pieces,
-            pFirst = pieces[0];
-            // If this piece of content is the first of its kind on the page...
-            if (pFirst === this_uID) {
-                pageFirst = true;
-            } else {
-                pageFirst = false;
-            }
-        }
-    }
-    return pageFirst;
-})();
-
-/**
-* Find if the position of the content within the page is the last of its kind
-* @return {bool} true if last, false if not
-*/
-T4Utils.ordinalIndicators.pageLast = (function() {
-    var pageLast = false;
-    // Create function to delete excess array objects if they have identical keys...
-    function unique(arr) {
-        var comparer = function compareObject(a, b) {
-            if (a.key === b.key) {
-                return 0;
-            } else {
-                if (a.key < b.key) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
-        };
-        arr.sort(comparer);
-        var end;
-        for (var i = 0; i < arr.length - 1; ++i) {
-            if (comparer(arr[i], arr[i+1]) === 0) {
-                arr.splice(i, 1);
-            }
-        }
-        return arr;
-    }
-    // Grab all pieces of content on the page
-    var cL = com.terminalfour.sitemanager.cache.utils.CSHelper.extractCachedContent (com.terminalfour.sitemanager.cache.utils.CSHelper.removeSpecialContent (section.getContent (publishCache.getChannel (), com.terminalfour.sitemanager.cache.CachedContent.APPROVED)));
-    // Run through each piece of content, find out all the content types, and create a key array...
-    var listContentTypeIDs = [];
-    for (var j = 0; j < cL.length; j++) {
-        var contentPiece = cL[j],
-            pieceID = contentPiece.getTemplateID();
-        listContentTypeIDs.push({
-            'key': pieceID,
-            'pieces': []
-        });
-    }
-    unique(listContentTypeIDs);
-    // Run through each piece of content, and put them in their corresponding key object
-    for (var k = 0; k < cL.length; k++) {
-        var cP = cL[k],
-            ctID = cP.getTemplateID(),
-            uID = cP.getID();
-        for (var l = 0; l < listContentTypeIDs.length; l++) {
-            var contentTypeID = listContentTypeIDs[l];
-            if (ctID === contentTypeID.key) {
-                var p = contentTypeID.pieces;
-                p.push(uID);
-            }
-        }
-    }
-    // Get the current content type ID and unique ID
-    var this_ctID = content.getTemplateID(),
-        this_uID = content.getID();
-    // Set the pageFirst and pageLast values
-    for (var m = 0; m < listContentTypeIDs.length; m++) {
-        var typeID = listContentTypeIDs[m];
-        // Find the current content piece in the array of all alike content on the page...
-        if (typeID.key === this_ctID) {
-            var pieces = typeID.pieces,
-            pLength = pieces.length,
-            pIndex = pLength - 1,
-            pLast = pieces[pIndex];
-            // If this piece of content is the last of its kind on the page...
-            if (pLast === this_uID) {
-                pageLast = true;
-            } else {
-                pageLast = false;
-            }
-        }
-    }
-    return pageLast;
-})();
-
-/**
-* Find index of the content within the page
-* @return {int} the content's index number (starting from 0)
-*/
-T4Utils.ordinalIndicators.pageIndex = (function() {
-    var contentIndex;
-    // Create function to delete excess array objects if they have identical keys...
-    function unique(arr) {
-        var comparer = function compareObject(a, b) {
-            if (a.key === b.key) {
-                return 0;
-            } else {
-                if (a.key < b.key) {
-                    return -1;
-                } else {
-                    return 1;
-                }
-            }
-        };
-        arr.sort(comparer);
-        var end;
-        for (var i = 0; i < arr.length - 1; ++i) {
-            if (comparer(arr[i], arr[i+1]) === 0) {
-                arr.splice(i, 1);
-            }
-        }
-        return arr;
-    }
-    // Grab all pieces of content on the page
-    var cL = com.terminalfour.sitemanager.cache.utils.CSHelper.extractCachedContent (com.terminalfour.sitemanager.cache.utils.CSHelper.removeSpecialContent (section.getContent (publishCache.getChannel (), com.terminalfour.sitemanager.cache.CachedContent.APPROVED)));
-    // Run through each piece of content, find out all the content types, and create a key array...
-    var listContentTypeIDs = [];
-    for (var j = 0; j < cL.length; j++) {
-        var contentPiece = cL[j],
-            pieceID = contentPiece.getTemplateID();
-        listContentTypeIDs.push({
-            'key': pieceID,
-            'pieces': []
-        });
-    }
-    unique(listContentTypeIDs);
-    // Run through each piece of content, and put them in their corresponding key object
-    for (var k = 0; k < cL.length; k++) {
-        var cP = cL[k],
-            ctID = cP.getTemplateID(),
-            uID = cP.getID();
-        for (var l = 0; l < listContentTypeIDs.length; l++) {
-            var contentTypeID = listContentTypeIDs[l];
-            if (ctID === contentTypeID.key) {
-                var p = contentTypeID.pieces;
-                p.push(uID);
-            }
-        }
-    }
-    // Get the current content type ID and unique ID
-    var this_ctID = content.getTemplateID(),
-        this_uID = content.getID();
-    // Set the pageFirst and pageLast values
-    for (var m = 0; m < listContentTypeIDs.length; m++) {
-        var typeID = listContentTypeIDs[m];
-        // Find the current content piece in the array of all alike content on the page...
-        if (typeID.key === this_ctID) {
-            var pieces = typeID.pieces,
-            pLength = pieces.length;
-            // Set the contentIndex variable...
-            for (var n = 0; n < pLength; n++) {
-                var piece = pieces[n];
-                if (this_uID === piece) {
-                    contentIndex = n;
-                    break;
-                }
-            }
-        }
-    }
-    return contentIndex;
-})();
-
-/**
-* Find if the position of the content within a groupset is the first of its kind
-* @return {bool} true if first, false if not
-*/
-T4Utils.ordinalIndicators.groupFirst = (function() {
-    var tid = content.getTemplateID(),
-        sid = section.getID(),
-        oCH = new ContentHierarchy(),
-        oCM = ContentManager.getManager(),
-        contentInSection = oCH.getContent(dbStatement,sid,'en'),
-        groupFirst = false;
-    for (var i = 0; i < contentInSection.length; i++) {
-        if (content.getID() === oCM.get(dbStatement,contentInSection[i],"en").getID()) {
-            if (i === 0) {
-                groupFirst = true;
-            } else if (tid !==  oCM.get(dbStatement,contentInSection[i-1],"en").getTemplateID()) {
-                groupFirst = true;
-            } else {
-                groupFirst = false;
-            }
-        }
-    }
-    return groupFirst;
-})();
-
-/**
-* Find if the position of the content within a groupset is the last of its kind
-* @return {bool} true if last, false if not
-*/
-T4Utils.ordinalIndicators.groupLast = (function() {
-    var tid = content.getTemplateID(),
-        sid = section.getID(),
-        oCH = new ContentHierarchy(),
-        oCM = ContentManager.getManager(),
-        contentInSection = oCH.getContent(dbStatement,sid,'en'),
-        groupLast = false;
-    for (var i = 0; i < contentInSection.length; i++) {
-        if (content.getID() === oCM.get(dbStatement,contentInSection[i],"en").getID()) {
-            if (i === contentInSection.length-1) {
-                groupLast = true;
-            } else if (tid !==  oCM.get(dbStatement,contentInSection[i+1],"en").getTemplateID()) {
-                groupLast = true;
-            } else {
-                groupLast = false;
-            }
-        }
-    }
-    return groupLast;
-})();

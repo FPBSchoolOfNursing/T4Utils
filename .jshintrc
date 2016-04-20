@@ -91,6 +91,7 @@
         "T4Utils" : true ,
         "importPackage" : true ,
         "com" : true ,
+		"org" : true ,
         "content" : true ,
         "language" : true ,
         "MediaManager" : true ,
@@ -102,6 +103,7 @@
         "MessageDigest" : true,
         "PathBuilder" : true,
         "ContentHierarchy" : true,
-        "ContentManager" : true
+        "ContentManager" : true,
+		"T4Utils.toString" : false
 	}
 }

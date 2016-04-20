@@ -16,7 +16,9 @@ T4Utils.elementInfo = T4Utils.elementInfo || {};
 /**
 *	Get all of the elements within the piece of content
 *	@return {ContentElement[]} An array containing the elements within the piece of content.
-*/	
+
+Removing this until it works. 
+
 T4Utils.elementInfo.getElements = function() {
 	var c = content || null;
 	if(c !== null) {
@@ -26,6 +28,7 @@ T4Utils.elementInfo.getElements = function() {
 		return null;
 	}
 };
+*/	
 
 /**
 *	If the element is "text", get its' "publish" value as a String.

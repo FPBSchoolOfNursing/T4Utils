@@ -47,7 +47,7 @@ T4Utils.ordinalIndicators.pageFirst = (function() {
     var listContentTypeIDs = [];
     for (var j = 0; j < cL.length; j++) {
         var contentPiece = cL[j],
-            pieceID = contentPiece.getTemplateID();
+            pieceID = contentPiece.getContentTypeID();
         listContentTypeIDs.push({
             'key': pieceID,
             'pieces': []
@@ -57,7 +57,7 @@ T4Utils.ordinalIndicators.pageFirst = (function() {
     // Run through each piece of content, and put them in their corresponding key object
     for (var k = 0; k < cL.length; k++) {
         var cP = cL[k],
-            ctID = cP.getTemplateID(),
+            ctID = cP.getContentTypeID(),
             uID = cP.getID();
         for (var l = 0; l < listContentTypeIDs.length; l++) {
             var contentTypeID = listContentTypeIDs[l];
@@ -68,7 +68,7 @@ T4Utils.ordinalIndicators.pageFirst = (function() {
         }
     }
     // Get the current content type ID and unique ID
-    var this_ctID = content.getTemplateID(),
+    var this_ctID = content.getContentTypeID(),
         this_uID = content.getID();
     // Set the pageFirst and pageLast values
     for (var m = 0; m < listContentTypeIDs.length; m++) {
@@ -108,7 +108,7 @@ T4Utils.ordinalIndicators.pageLast = (function() {
             }
         };
         arr.sort(comparer);
-        var end;
+        //var end;
         for (var i = 0; i < arr.length - 1; ++i) {
             if (comparer(arr[i], arr[i+1]) === 0) {
                 arr.splice(i, 1);
@@ -122,7 +122,7 @@ T4Utils.ordinalIndicators.pageLast = (function() {
     var listContentTypeIDs = [];
     for (var j = 0; j < cL.length; j++) {
         var contentPiece = cL[j],
-            pieceID = contentPiece.getTemplateID();
+            pieceID = contentPiece.getContentTypeID();
         listContentTypeIDs.push({
             'key': pieceID,
             'pieces': []
@@ -132,7 +132,7 @@ T4Utils.ordinalIndicators.pageLast = (function() {
     // Run through each piece of content, and put them in their corresponding key object
     for (var k = 0; k < cL.length; k++) {
         var cP = cL[k],
-            ctID = cP.getTemplateID(),
+            ctID = cP.getContentTypeID(),
             uID = cP.getID();
         for (var l = 0; l < listContentTypeIDs.length; l++) {
             var contentTypeID = listContentTypeIDs[l];
@@ -143,7 +143,7 @@ T4Utils.ordinalIndicators.pageLast = (function() {
         }
     }
     // Get the current content type ID and unique ID
-    var this_ctID = content.getTemplateID(),
+    var this_ctID = content.getContentTypeID(),
         this_uID = content.getID();
     // Set the pageFirst and pageLast values
     for (var m = 0; m < listContentTypeIDs.length; m++) {
@@ -185,7 +185,7 @@ T4Utils.ordinalIndicators.pageIndex = (function() {
             }
         };
         arr.sort(comparer);
-        var end;
+        //var end;
         for (var i = 0; i < arr.length - 1; ++i) {
             if (comparer(arr[i], arr[i+1]) === 0) {
                 arr.splice(i, 1);
@@ -199,7 +199,7 @@ T4Utils.ordinalIndicators.pageIndex = (function() {
     var listContentTypeIDs = [];
     for (var j = 0; j < cL.length; j++) {
         var contentPiece = cL[j],
-            pieceID = contentPiece.getTemplateID();
+            pieceID = contentPiece.getContentTypeID();
         listContentTypeIDs.push({
             'key': pieceID,
             'pieces': []
@@ -209,7 +209,7 @@ T4Utils.ordinalIndicators.pageIndex = (function() {
     // Run through each piece of content, and put them in their corresponding key object
     for (var k = 0; k < cL.length; k++) {
         var cP = cL[k],
-            ctID = cP.getTemplateID(),
+            ctID = cP.getContentTypeID(),
             uID = cP.getID();
         for (var l = 0; l < listContentTypeIDs.length; l++) {
             var contentTypeID = listContentTypeIDs[l];
@@ -220,7 +220,7 @@ T4Utils.ordinalIndicators.pageIndex = (function() {
         }
     }
     // Get the current content type ID and unique ID
-    var this_ctID = content.getTemplateID(),
+    var this_ctID = content.getContentTypeID(),
         this_uID = content.getID();
     // Set the pageFirst and pageLast values
     for (var m = 0; m < listContentTypeIDs.length; m++) {
@@ -247,17 +247,17 @@ T4Utils.ordinalIndicators.pageIndex = (function() {
 * @return {bool} true if first, false if not
 */
 T4Utils.ordinalIndicators.groupFirst = (function() {
-    var tid = content.getTemplateID(),
+    var tid = content.getContentTypeID(),
         sid = section.getID(),
         oCH = new ContentHierarchy(),
-        oCM = ContentManager.getManager(),
+        oCM = com.terminalfour.spring.ApplicationContextProvider.getBean(com.terminalfour.content.IContentManager),
         contentInSection = oCH.getContent(dbStatement,sid,'en'),
         groupFirst = false;
     for (var i = 0; i < contentInSection.length; i++) {
-        if (content.getID() === oCM.get(dbStatement,contentInSection[i],"en").getID()) {
+        if (content.getID() === oCM.get(contentInSection[i],"en").getID()) {
             if (i === 0) {
                 groupFirst = true;
-            } else if (tid !==  oCM.get(dbStatement,contentInSection[i-1],"en").getTemplateID()) {
+            } else if (tid !==  oCM.get(contentInSection[i-1],"en").getContentTypeID()) {
                 groupFirst = true;
             } else {
                 groupFirst = false;
@@ -272,17 +272,17 @@ T4Utils.ordinalIndicators.groupFirst = (function() {
 * @return {bool} true if last, false if not
 */
 T4Utils.ordinalIndicators.groupLast = (function() {
-    var tid = content.getTemplateID(),
+    var tid = content.getContentTypeID(),
         sid = section.getID(),
         oCH = new ContentHierarchy(),
-        oCM = ContentManager.getManager(),
+        oCM = com.terminalfour.spring.ApplicationContextProvider.getBean(com.terminalfour.content.IContentManager),
         contentInSection = oCH.getContent(dbStatement,sid,'en'),
         groupLast = false;
     for (var i = 0; i < contentInSection.length; i++) {
-        if (content.getID() === oCM.get(dbStatement,contentInSection[i],"en").getID()) {
+        if (content.getID() === oCM.get(contentInSection[i],"en").getID()) {
             if (i === contentInSection.length-1) {
                 groupLast = true;
-            } else if (tid !==  oCM.get(dbStatement,contentInSection[i+1],"en").getTemplateID()) {
+            } else if (tid !==  oCM.get(contentInSection[i+1],"en").getContentTypeID()) {
                 groupLast = true;
             } else {
                 groupLast = false;

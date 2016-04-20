@@ -3,7 +3,7 @@
  * @version v1.0.0
  * @link git+https://github.com/FPBSchoolOfNursing/T4Utils.git
  * @author Ben Margevicius
- * @date April 4, 2016
+ * @date April 19, 2016
  * Copyright 2016. MIT licensed.
  */
 

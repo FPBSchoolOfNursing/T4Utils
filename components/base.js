@@ -1,36 +1,6 @@
 /*  Versioning    
-	6/24/2015 - Initial
-	6/30/2015 - Added stuff from T4's javascript util (https://community.terminalfour.com/forum/index.php?topic=426.0)
-				Added utils.version;
-				Added utils.siteManager namespace 
-				Added utils.siteManager.version, and utils.siteManager.buildDetails;
-				Added utils.brokerUtils namespace
-				Added utils.brokerUtils.processT4Tags
-	7/1/2015	Added utils.console(method, textOrObj) used to write debugging statements to the console.
-	7/2/2015 	Added utils.elementInfo namspace to return info about elements 
-				Added utils.elementInfo.getElements to return an array of elements
-				Added utils.elementInfo.getElementValue(element) to return the value of an element. 
-	7/6/2015	Added utils.elementInfo.getElementName(element).
-	7/8/2015	Added newline chars for pretty printing of console and write methods
-				Added utils.siteManager.javaVersion
-	7/20/2015	Added utils.getSectionInfo.getChildren(section, isHiddenInNAV)  
-	8/13/2015	Added utils.getSectionInfo.getLevel(section)
-				Added utils.toString(obj) 
-	9/18/2015	Added utils.elementInfo.getElementID (element) Returns the id of an element.
-				Added utils.media namspace to give some help with images utils.media.getMediaObject(int id)
-						utils.media.getImageDimensions(mediaobj media)
-						utils.media.getImageVariantsIds(string mediaElement).	
-	11/2/2015	Added utils.getSectionInfo.getPathUntilLevel(finalLevel, currentSection)
-				Added utils.getSectionInfo.getPathBySteps(stepsUp, currentSection)
-				Modded utils.getSectionInfo.getRootPath to use getPathUntilLevel(0);
-	1/6/2016	Modded the elementInfo namespace. This includes some bug checks.
-	2/16/2016 	Added utils.Media.getImageTag.
-	2/25/2016 	Removed utils.Media.getImageTag. There is an issue with utils classes and t4 tags 
-				Merged in security namespace
-				Merged in security.toSHA256(plainText)
-	4/5/2016	Changed to a modular format. Using NPM + Gulp to script the builds. Changed to semantic versioning.
-				Added another attempt at media.GetImageTag. It's incomplete ATM.
-	4/14/2016	Moved the java depedencies to a seperate file. This is done to prevent future duplicates.
+	4/19/2016 - Initial V8.1 support
+	
 	Usage:
 	1) Add a content type, modify the content layout, paste this at the top of your layout. 
 	2) Your code will go below the T4Utils Object
@@ -152,11 +122,11 @@ var T4Utils = (function (utils) {
 	* @param {object} obj - The object you want to convert
 	* @return {java.lang.String} The converted object.	
 	* It has happend to me when using utils.elementInfo.getElementValue('') it'll return a java obj? the javascript toString method will not convert that to a javascript string. This will convert to a * string. grumble.
-	*/
+	depreciating this 4/19/2016. toJavaString is more sound and complete of a description. 
 	utils.toString = function(obj)
 	{
-		return new java.lang.String(obj); 
-	};
+		return new obj.toJavaString(); 
+	};*/
 	
 	/**
 	* Converts a javascript object to Java string by prototying
@@ -169,12 +139,21 @@ var T4Utils = (function (utils) {
 		return new java.lang.String(this); //this is crazy.		
 	};
 	
+	/**
+	* Escapes an html encoded string <tag class="something"> should become &lt;tag class=&quot;something&quot;&gt
+	* @param {string} unsafe - The HTML encoded string you want to convert
+	* @return {java.lang.String} The HTML escaped string.		
+	*/
 	utils.escapeHtml = function (unsafe) {
+		return org.apache.commons.lang.StringEscapeUtils.escapeHtml(unsafe);
+		
+		/*
 		return unsafe.replace(/&/g, "&amp;")
     			.replace(/</g, "&lt;")
     			.replace(/>/g, "&gt;")
-    			.replace(/'/g, "&#039;");
-    			//.replace(/"/g, "&quot;");	
+    			.replace(/'/g, "&#039;")
+    			.replace(/"/g, "&quot;");	
+				*/
 	};
 	return utils;
 })(T4Utils || {});
